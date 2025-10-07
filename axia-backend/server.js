@@ -8,10 +8,10 @@ app.use(express.json());
 
 // Conexión a PostgreSQL
 const client = new Client({
-  user: 'postgres',      // Usuario de PostgreSQL
+  user: 'PostgreSQL 18',      // Usuario de PostgreSQL
   host: 'localhost',     // Dirección de la base de datos
   database: 'gestion_tareas', // Nombre de la base de datos
-  password: 'yourpassword', // Contraseña de PostgreSQL
+  password: 'jirek', // Contraseña de PostgreSQL
   port: 5432,            // Puerto por defecto de PostgreSQL
 });
 

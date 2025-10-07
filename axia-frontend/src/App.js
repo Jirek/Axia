@@ -18,11 +18,11 @@ function App() {
       .then(response => setUsuarios(response.data))
       .catch(error => console.error('Error al obtener usuarios:', error));
 
-    // Usuario actual (puede ser el primero para pruebas)
+    // Obtener el primer usuario por ID (si es necesario)
     axios.get('http://localhost:5000/api/usuarios/1')
       .then(response => setUsuarioActual(response.data))
       .catch(error => console.error('Error al obtener usuario actual:', error));
-  }, []);
+  }, []); // Aquí aseguramos que se obtienen los datos solo una vez al cargar
 
   // Función para mapear los usuarios asignados a cada tarea
   const getUsuariosAsignados = (ids) => {
@@ -30,12 +30,12 @@ function App() {
     return ids.map(id => usuarios.find(u => u.id === id)).filter(Boolean);
   };
 
-  // Columnas del tablero estilo Trello
-  const columnas = ['Backlog', 'Task', 'Model', 'Answer', 'In Process', 'Done'];
+  // Columnas del tablero (las 4 que solicitaste)
+  const columnas = ['Backlog Task', 'To Do Task', 'In Process', 'Done'];
 
   // Agrupar tareas por columna
   const groupedTareas = columnas.reduce((acc, col) => {
-    acc[col] = tareas.filter(t => t.columna === col);
+    acc[col] = tareas.filter(t => t.columna === col); // Filtrar las tareas por columna
     return acc;
   }, {});
 
@@ -77,7 +77,7 @@ function App() {
                     <div className="tag">{tarea.columna}</div>
                   </div>
                   <div className="users">
-                    {getUsuariosAsignados(tarea.responsable_id ? [tarea.responsable_id] : []).map(u => (
+                    {getUsuariosAsignados(tarea.responsable_id).map(u => (
                       <img key={u.id} src={`usuario_${u.id}.jpg`} alt={u.nombre} />
                     ))}
                   </div>
